@@ -1,0 +1,109 @@
+/* Cards de resumo no topo */
+.cards-resumo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card-resumo {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-left: 6px solid var(--green);
+  transition: transform 0.2s;
+}
+
+.card-resumo:hover {
+  transform: translateY(-3px);
+}
+
+.card-resumo .label {
+  color: var(--mut);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-resumo strong {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.8rem;
+  color: var(--ink);
+}
+
+/* Grid dos gráficos */
+.grid-graficos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.card-grafico {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.card-grafico.card-full {
+  grid-column: 1 / -1;
+}
+
+.card-grafico h3 {
+  margin-bottom: 16px;
+  color: var(--red);
+  font-size: 1.1rem;
+}
+
+.card-grafico canvas {
+  max-height: 320px;
+}
+
+/* Resumo detalhado */
+.resumo-detalhado {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.resumo-detalhado h3 {
+  margin-bottom: 16px;
+  color: var(--red);
+}
+
+.resumo-linha {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.resumo-linha:last-child {
+  border-bottom: none;
+}
+
+.resumo-linha .nome {
+  font-weight: 600;
+}
+
+.resumo-linha .valor {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .grid-graficos {
+    grid-template-columns: 1fr;
+  }
+  .card-resumo strong {
+    font-size: 1.4rem;
+  }
+}

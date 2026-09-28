@@ -1,0 +1,176 @@
+/* Variáveis globais */
+:root {
+  --bg:#eef2ea; --card:#fff; --ink:#1f2a24; --mut:#66746b; --line:#d7dfd2;
+  --green:#1f5a3a; --red:#c4302b; --gold:#e0a21a; --ok:#2f7d4f; --onc:#fff;
+}
+
+/* Modo escuro automático */
+@media (prefers-color-scheme:dark) {
+  :root {
+    --bg:#141b17; --card:#1e2822; --ink:#eef2ea; --mut:#97a69c; --line:#2f3d35;
+    --green:#5dbb84; --red:#ef6a63; --gold:#f0b83a; --ok:#5dbb84; --onc:#10170f;
+  }
+}
+
+/* Reset básico */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;
+  min-height: 100vh;
+}
+
+h1, h2, h3 { font-family: Fraunces,Georgia,serif; margin: 0; }
+
+/* Fundo da pizzaria (usado em todas as páginas) */
+.bg-pizzaria {
+  position: fixed;
+  inset: 0;
+  background-image: url('../img/bella.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+/* Overlay escuro por cima da imagem */
+.bg-pizzaria::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.55) 50%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+/* Elementos comuns */
+.hidden { display: none !important; }
+.mut { color: var(--mut); font-size: 14px; }
+.center { text-align: center; }
+
+.row {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+}
+
+.tot { font-size: 22px; font-weight: 800; }
+.price { font-weight: 700; }
+
+label.f { display: block; font-weight: 600; margin: 16px 0 6px; }
+
+input[type=text] {
+  font: inherit; width: 100%; padding: 12px; border-radius: 10px;
+  border: 2px solid var(--line); background: var(--card); color: var(--ink);
+}
+
+select {
+  font: inherit; padding: 12px; border-radius: 10px;
+  border: 2px solid var(--line); background: var(--card); color: var(--ink);
+  width: 100%;
+}
+
+/* Botões */
+.btn {
+  font: inherit; font-weight: 700; border: 0; border-radius: 10px;
+  padding: 12px 16px; min-height: 48px; cursor: pointer;
+  background: var(--green); color: var(--onc); width: 100%;
+  transition: transform 0.1s;
+}
+
+.btn:active { transform: scale(0.98); }
+.btn.red { background: var(--red); color: #fff; }
+.btn.gold { background: var(--gold); color: #2a1d00; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Status box */
+.status-box {
+  background: var(--card); border: 2px solid var(--line);
+  border-radius: 16px; padding: 24px; text-align: center;
+  margin-top: 20px;
+}
+
+.status-box .icon { font-size: 3rem; margin-bottom: 12px; }
+.status-box h3 { font-size: 1.4rem; margin: 0 0 8px; }
+.status-box p { margin: 6px 0; }
+
+.pulse { animation: pulse 2s infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Painel das telas de funcionários */
+.painel {
+  max-width: 1200px; margin: 0 auto; padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.topo {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
+  border-bottom: 3px double var(--line); padding-bottom: 16px;
+}
+
+.topo h1 { color: var(--red); font-size: 28px; }
+
+.nav-telas { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.nav-telas a {
+  text-decoration: none; padding: 8px 16px; border-radius: 99px;
+  background: var(--card); color: var(--ink); font-weight: 600;
+  border: 2px solid var(--line); font-size: 14px;
+  transition: all 0.2s;
+}
+
+.nav-telas a:hover { border-color: var(--green); }
+
+.nav-telas a.ativo {
+  background: var(--green); color: var(--onc); border-color: var(--green);
+}
+
+/* Tags de tempo */
+.tag {
+  display: inline-block; padding: 4px 12px; border-radius: 99px;
+  font-size: 13px; font-weight: 700;
+}
+
+.t-ok { background: var(--ok); color: var(--onc); }
+.t-mid { background: var(--gold); color: #2a1d00; }
+.t-late { background: var(--red); color: #fff; }
+
+/* Lista de itens */
+.item {
+  padding: 10px 0; border-bottom: 1px dashed var(--line);
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+}
+
+.qty { display: flex; align-items: center; gap: 10px; }
+
+.qty button {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 2px solid var(--line); background: var(--card);
+  color: var(--ink); font-size: 20px; cursor: pointer;
+}
+
+/* Recibo */
+.recibo {
+  background: var(--card); border: 2px dashed var(--line);
+  border-radius: 16px; padding: 20px; margin-top: 20px;
+}
+
+.recibo-linha {
+  display: flex; justify-content: space-between;
+  padding: 6px 0; font-size: 15px;
+}
+
+.recibo-total {
+  display: flex; justify-content: space-between;
+  padding-top: 12px; margin-top: 8px;
+  border-top: 2px solid var(--line);
+  font-size: 1.3rem; font-weight: 800;
+}

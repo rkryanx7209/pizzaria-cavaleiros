@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bella Massa — Dashboard</title>
+  <link rel="icon" type="image/png" href="src/img/bella.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap">
+  <link rel="stylesheet" href="src/css/global.css">
+  <link rel="stylesheet" href="src/css/dashboard.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="bg-pizzaria"></div>
+  <div class="painel">
+    <div class="topo">
+      <h1>📊 Bella Massa — Dashboard</h1>
+      <nav class="nav-telas">
+        <a href="chef.html">👨‍🍳 Chef</a>
+        <a href="garcom.html">🛎️ Garçom</a>
+        <a href="caixa.html">💳 Caixa</a>
+        <a href="dashboard.html" class="ativo">📊 Dashboard</a>
+      </nav>
+    </div>
+    <!-- Cards de resumo -->
+    <div class="cards-resumo" id="cardsResumo">
+      <div class="card-resumo">
+        <span class="label">💰 Faturamento</span>
+        <strong id="totalFaturamento">R$ 0,00</strong>
+      </div>
+      <div class="card-resumo">
+        <span class="label">📦 Pedidos</span>
+        <strong id="totalPedidos">0</strong>
+      </div>
+      <div class="card-resumo">
+        <span class="label">🍕 Pizzas vendidas</span>
+        <strong id="totalPizzas">0</strong>
+      </div>
+      <div class="card-resumo">
+        <span class="label">🥤 Bebidas vendidas</span>
+        <strong id="totalBebidas">0</strong>
+      </div>
+      <div class="card-resumo">
+        <span class="label">📈 Ticket médio</span>
+        <strong id="ticketMedio">R$ 0,00</strong>
+      </div>
+      <div class="card-resumo">
+        <span class="label">⏱️ Tempo médio</span>
+        <strong id="tempoMedio">0 min</strong>
+      </div>
+    </div>
+    <!-- Gráficos -->
+    <div class="grid-graficos">
+
+      <div class="card-grafico">
+        <h3>🍕 Top 5 Pizzas Mais Vendidas</h3>
+        <canvas id="graficoPizzas"></canvas>
+      </div>
+
+      <div class="card-grafico">
+        <h3>💰 Formas de Pagamento</h3>
+        <canvas id="graficoPagamento"></canvas>
+      </div>
+
+      <div class="card-grafico card-full">
+        <h3>📊 Faturamento por Mesa</h3>
+        <canvas id="graficoMesas"></canvas>
+      </div>
+
+      <div class="card-grafico card-full">
+        <h3>🥤 Bebidas Mais Vendidas</h3>
+        <canvas id="graficoBebidas"></canvas>
+      </div>
+    </div>
+    <!-- Resumo detalhado -->
+    <div class="resumo-detalhado">
+      <h3>📋 Resumo Detalhado</h3>
+      <div id="resumoDetalhado"></div>
+    </div>
+
+  </div>
+  <script src="src/js/dados.js"></script>
+  <script src="src/js/dashboard.js"></script>
+</body>
+</html>

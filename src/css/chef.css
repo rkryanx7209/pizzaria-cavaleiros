@@ -1,0 +1,36 @@
+/* =========================================================
+   TELA DO CHEF
+   ========================================================= */
+.legenda {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 16px; font-size: 14px;
+}
+
+.tickets {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.ticket {
+  background: var(--card); border-radius: 12px;
+  border-top: 8px solid var(--line); padding: 14px;
+}
+.ticket.c-ok { border-top-color: var(--ok); }
+.ticket.c-mid { border-top-color: var(--gold); }
+.ticket.c-late { border-top-color: var(--red); }
+
+.ticket .num {
+  font-family: Fraunces,Georgia,serif;
+  font-size: 36px; font-weight: 800;
+}
+.ticket .mesa {
+  font-family: Fraunces,Georgia,serif;
+  font-size: 24px; font-weight: 800;
+}
+
+.empty-state {
+  color: var(--mut); padding: 40px; text-align: center;
+  border: 2px dashed var(--line); border-radius: 12px;
+  grid-column: 1 / -1;
+}

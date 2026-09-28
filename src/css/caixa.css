@@ -1,0 +1,41 @@
+/* =========================================================
+   TELA DO CAIXA
+   ========================================================= */
+.grid {
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.card-mesa {
+  background: var(--card); border-radius: 12px;
+  padding: 16px; border-left: 6px solid var(--gold);
+}
+.card-mesa.pago { border-left-color: var(--ok); }
+
+.card-mesa .mesa {
+  font-family: Fraunces,Georgia,serif;
+  font-size: 24px; font-weight: 800;
+}
+
+.card-mesa .status-info {
+  margin-top: 10px; padding: 8px 12px;
+  border-radius: 8px;
+}
+.card-mesa .status-pago {
+  background: rgba(47,125,79,0.1);
+  color: var(--ok); font-weight: 700; margin: 0;
+}
+.card-mesa .status-pendente {
+  background: rgba(224,162,26,0.1);
+  color: var(--red); font-weight: 700; margin: 0;
+}
+.card-mesa .status-andamento {
+  background: rgba(0,0,0,0.05);
+  color: var(--mut); margin: 0;
+}
+
+.empty-state {
+  color: var(--mut); padding: 40px; text-align: center;
+  border: 2px dashed var(--line); border-radius: 12px;
+  grid-column: 1 / -1;
+}
