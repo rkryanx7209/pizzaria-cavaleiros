@@ -178,49 +178,6 @@ Tudo atualizado **em tempo real**.
 
 ---
 
-## 🔥 Firebase
-
-### Configuração
-
-O arquivo `src/js/firebase-config.js` contém as chaves do projeto Firebase.
-
-> ⚠️ **As chaves do Firebase são públicas por design** — não é problema de segurança expô-las no Front-end. A proteção real está nas **Firestore Rules**.
-
-### Firestore Rules
-
-```javascript
-rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-
-    match /pedidos/{pedidoId} {
-      allow create: if true;
-      allow read: if true;
-      allow update, delete: if request.auth != null;
-    }
-
-    match /usuarios/{uid} {
-      allow create: if true;
-      allow read: if true;
-      allow update, delete: if false;
-    }
-
-    match /logs/{logId} {
-      allow create: if true;
-      allow read: if true;
-      allow update, delete: if false;
-    }
-
-    match /{document=**} {
-      allow read, write: if false;
-    }
-  }
-}
-```
-
----
-
 ## 🎨 Design
 
 - **Fonte títulos:** Fraunces (serifada)
