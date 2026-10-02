@@ -17,42 +17,31 @@
 
   <div class="tablet" id="tabletCliente">
 
-    <!-- ETAPA 1: IDENTIFICAÇÃO -->
     <div class="in" id="etapaIdentificacao">
       <h2>Bem-vindo à Bella Massa 🍕</h2>
       <p class="mut">Insira os seus dados para iniciar o pedido.</p>
-
       <label class="f" for="nome">Seu Nome</label>
       <input type="text" id="nome" placeholder="Ex.: Maria" autocomplete="off">
-
       <label class="f" for="mesa">Sua Mesa</label>
       <select id="mesa"></select>
-
       <div style="margin-top:24px">
         <button class="btn red" id="btnAcessar">Acessar Cardápio ➔</button>
       </div>
     </div>
 
-    <!-- ETAPA 2: CARDÁPIO -->
     <div class="in hidden" id="etapaCardapio">
       <h2 id="saudacao">Olá! Cardápio</h2>
       <p class="mut" id="infoMesa"></p>
-
       <div id="listaItens" style="margin-top:14px"></div>
-
       <div class="row" style="margin-top:20px; border-top: 2px solid var(--line); padding-top: 15px;">
         <div>
           <span class="mut">Total do Pedido</span>
           <div class="tot" id="totalPedido">R$ 0,00</div>
         </div>
       </div>
-
-      <button class="btn red" id="btnEnviar" style="margin-top:12px" disabled>
-        Enviar para a Cozinha
-      </button>
+      <button class="btn red" id="btnEnviar" style="margin-top:12px" disabled>Enviar para a Cozinha</button>
     </div>
 
-    <!-- ETAPA 3: AGUARDANDO -->
     <div class="in hidden" id="etapaAguardando">
       <div class="status-box">
         <div class="icon pulse">👨‍🍳</div>
@@ -60,44 +49,28 @@
         <p>Aguarde na <b>Mesa <span id="mesaAguardando"></span></b>.</p>
         <p class="mut">Pedido feito às <span id="horaPedido"></span></p>
       </div>
-
       <div class="recibo" id="reciboAguardando"></div>
-
       <p class="mut center" style="margin-top:20px">
         ⏳ Quando o garçom entregar a sua pizza,<br>
         a opção de pagamento aparecerá aqui automaticamente.
       </p>
     </div>
 
-    <!-- ETAPA 4: PAGAMENTO -->
     <div class="in hidden" id="etapaPagamento">
       <div class="status-box" style="border-color: var(--ok); background: rgba(47,125,79,0.08)">
         <div class="icon">🍕✅</div>
         <h3>Sua pizza chegou!</h3>
         <p>Bom apetite! Quando terminar, faça o pagamento pelo tablet.</p>
       </div>
-
       <div class="recibo" id="reciboPagamento"></div>
-
       <h3 style="margin-top:20px; font-family:Fraunces,Georgia,serif;">Forma de Pagamento</h3>
-
       <div class="pagamento-grid">
-        <button class="btn gold" data-pag="Pix">
-          <span class="emoji">📱</span>
-          Pix
-        </button>
-        <button class="btn gold" data-pag="Cartão">
-          <span class="emoji">💳</span>
-          Cartão
-        </button>
-        <button class="btn gold" data-pag="Dinheiro">
-          <span class="emoji">💵</span>
-          Dinheiro
-        </button>
+        <button class="btn gold" data-pag="Pix"><span class="emoji">📱</span>Pix</button>
+        <button class="btn gold" data-pag="Cartão"><span class="emoji">💳</span>Cartão</button>
+        <button class="btn gold" data-pag="Dinheiro"><span class="emoji">💵</span>Dinheiro</button>
       </div>
     </div>
 
-    <!-- ETAPA 5: PAGO -->
     <div class="in hidden" id="etapaPago">
       <div class="status-box" style="border-color: var(--ok)">
         <div class="icon">✅</div>
@@ -105,19 +78,14 @@
         <p>Obrigado pela visita, <b id="nomePago"></b>!</p>
         <p class="mut">Volte sempre à Bella Massa 🍕</p>
       </div>
-
       <div class="recibo" id="reciboPago"></div>
-
       <p class="mut center" id="contagem" style="margin-top: 20px; font-weight: 600;"></p>
-
-      <button class="btn" id="btnNovoCliente" style="margin-top:20px">
-        Iniciar Novo Atendimento
-      </button>
+      <button class="btn" id="btnNovoCliente" style="margin-top:20px">Iniciar Novo Atendimento</button>
     </div>
 
   </div>
 
-  <script src="src/js/dados.js"></script>
-  <script src="src/js/index.js"></script>
+  <!-- ⚠️ type="module" OBRIGATÓRIO para Firebase -->
+  <script type="module" src="src/js/index.js"></script>
 </body>
 </html>

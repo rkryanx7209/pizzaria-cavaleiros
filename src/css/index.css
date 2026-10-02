@@ -1,36 +1,43 @@
-/* Centraliza o tablet na tela */
+/* =========================================================
+   BODY DO CLIENTE — Centraliza o tablet
+   ========================================================= */
 .body-cliente {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
   min-height: 100vh;
+  padding: 20px;
+  background: #0a0a0a;
 }
 
-/* Moldura do tablet */
+/* =========================================================
+   MOLDURA DO TABLET
+   ========================================================= */
 .tablet {
   max-width: 820px;
   width: 100%;
-  border: 16px solid #2b2f2d;
-  border-radius: 36px;
+  border: 18px solid #1a1a1a;
+  border-radius: 40px;
   background: var(--bg);
-  padding: 28px;
-  min-height: 500px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  padding: 32px 28px;
+  min-height: 600px;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.05);
   position: relative;
   z-index: 1;
 }
 
-/* Detalhe da câmera no topo do tablet */
+/* Câmera no topo do tablet */
 .tablet::before {
   content: '';
   position: absolute;
-  top: 6px;
+  top: 8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
+  width: 70px;
   height: 6px;
-  background: #2b2f2d;
+  background: #0a0a0a;
   border-radius: 3px;
 }
 
@@ -40,10 +47,124 @@
   margin: 0 auto;
 }
 
-/* Seções do cardápio */
-.secao-cardapio {
+/* =========================================================
+   TÍTULOS E TEXTOS
+   ========================================================= */
+.tablet h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.8rem;
+  color: var(--red);
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.tablet h3 {
   font-family: Fraunces, Georgia, serif;
   font-size: 1.1rem;
+  color: var(--red);
+  margin: 24px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--line);
+  letter-spacing: 0.5px;
+}
+
+.tablet .mut {
+  color: var(--mut);
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* =========================================================
+   LABELS E INPUTS
+   ========================================================= */
+.tablet label.f {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  margin: 18px 0 8px;
+  text-align: left;
+}
+
+.tablet input[type=text],
+.tablet select {
+  font: inherit;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 2px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tablet input[type=text]:focus,
+.tablet select:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(196, 48, 43, 0.15);
+}
+
+.tablet input::placeholder {
+  color: var(--mut);
+  opacity: 0.7;
+}
+
+/* =========================================================
+   BOTÕES GRANDES (Lei de Fitts)
+   ========================================================= */
+.tablet .btn {
+  font: inherit;
+  font-weight: 700;
+  font-size: 1.05rem;
+  border: 0;
+  border-radius: 14px;
+  padding: 16px 24px;
+  min-height: 56px;
+  cursor: pointer;
+  background: var(--green);
+  color: var(--onc);
+  width: 100%;
+  margin-top: 16px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.3px;
+}
+
+.tablet .btn:active {
+  transform: scale(0.98);
+}
+
+.tablet .btn.red {
+  background: var(--red);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(196, 48, 43, 0.35);
+}
+
+.tablet .btn.red:hover {
+  box-shadow: 0 6px 20px rgba(196, 48, 43, 0.5);
+}
+
+.tablet .btn.gold {
+  background: var(--gold);
+  color: #2a1d00;
+}
+
+.tablet .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* =========================================================
+   SEÇÕES DO CARDÁPIO
+   ========================================================= */
+.secao-cardapio {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.15rem;
   color: var(--red);
   margin: 24px 0 8px;
   padding-bottom: 6px;
@@ -55,7 +176,182 @@
   margin-top: 8px;
 }
 
-/* Grid de pagamento */
+/* =========================================================
+   ITENS DO CARDÁPIO
+   ========================================================= */
+.item {
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.item b {
+  font-size: 15px;
+  color: var(--ink);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.item .price {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--red);
+}
+
+/* =========================================================
+   CONTROLE DE QUANTIDADE (+ / −)
+   ========================================================= */
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.qty button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.qty button:hover {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+
+.qty button:active {
+  transform: scale(0.9);
+}
+
+.qty b {
+  font-size: 18px;
+  font-weight: 800;
+  min-width: 24px;
+  text-align: center;
+  color: var(--ink);
+}
+
+/* =========================================================
+   ROW (TOTAL + BOTÃO)
+   ========================================================= */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.tot {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--red);
+}
+
+/* =========================================================
+   STATUS BOX (etapa aguardando)
+   ========================================================= */
+.status-box {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  margin-top: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.status-box .icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.status-box h3 {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.4rem;
+  margin: 0 0 12px;
+  color: var(--ink);
+  border: none;
+  padding: 0;
+}
+
+.status-box p {
+  margin: 8px 0;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+/* =========================================================
+   ANIMAÇÃO DE PULSO
+   ========================================================= */
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.95); }
+}
+
+/* =========================================================
+   RECIBO
+   ========================================================= */
+.recibo {
+  background: var(--card);
+  border: 2px dashed var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.recibo-linha {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  color: var(--ink);
+}
+
+.recibo-total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 2px solid var(--line);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--red);
+}
+
+/* =========================================================
+   GRID DE PAGAMENTO
+   ========================================================= */
 .pagamento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -64,15 +360,100 @@
 }
 
 .pagamento-grid .btn {
-  min-height: 80px;
-  font-size: 1.1rem;
+  min-height: 90px;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 6px;
+  padding: 12px 8px;
+  margin-top: 0;
 }
 
 .pagamento-grid .btn .emoji {
-  font-size: 1.8rem;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+/* =========================================================
+   CONTAGEM REGRESSIVA
+   ========================================================= */
+#contagem {
+  font-size: 15px;
+  color: var(--mut);
+  text-align: center;
+  padding: 12px;
+  background: rgba(196, 48, 43, 0.08);
+  border-radius: 12px;
+  border: 1px dashed var(--red);
+}
+
+/* =========================================================
+   UTILITÁRIOS
+   ========================================================= */
+.hidden { display: none !important; }
+.center { text-align: center; }
+
+/* =========================================================
+   RESPONSIVO — Celular/tablet pequeno
+   ========================================================= */
+@media (max-width: 600px) {
+  .body-cliente {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .tablet {
+    border: none;
+    border-radius: 0;
+    padding: 20px 16px;
+    min-height: 100vh;
+    box-shadow: none;
+  }
+
+  .tablet::before {
+    display: none;
+  }
+
+  .tablet h2 {
+    font-size: 1.5rem;
+  }
+
+  .tablet .tot {
+    font-size: 1.3rem;
+  }
+
+  .pagamento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pagamento-grid .btn {
+    min-height: 60px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 14px 20px;
+  }
+
+  .pagamento-grid .btn .emoji {
+    font-size: 1.5rem;
+  }
+}
+
+/* =========================================================
+   ANIMAÇÃO DE ENTRADA
+   ========================================================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tablet .in:not(.hidden) {
+  animation: fadeIn 0.3s ease;
 }

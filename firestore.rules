@@ -1,0 +1,32 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // PEDIDOS
+    match /pedidos/{pedidoId} {
+      allow create: if true;
+      allow read: if true;
+      allow update, delete: if request.auth != null;
+    }
+
+    // USUÁRIOS
+    match /usuarios/{uid} {
+      // Só quem está logado pode ler
+      allow read: if request.auth != null;
+
+      // Só gerente pode CRIAR/ALTERAR/DELETAR
+      allow create, update, delete: if isGerente();
+
+      // Função auxiliar
+      function isGerente() {
+        return request.auth != null
+          && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.perfil == 'gerente';
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

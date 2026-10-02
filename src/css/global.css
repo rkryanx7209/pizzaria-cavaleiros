@@ -174,3 +174,62 @@ select {
   border-top: 2px solid var(--line);
   font-size: 1.3rem; font-weight: 800;
 }
+
+/* Topo com botão sair */
+.topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Botão de logout */
+.btn-sair {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.1s;
+  min-height: 36px;
+}
+
+.btn-sair:hover {
+  transform: scale(1.05);
+}
+
+.btn-sair:active {
+  transform: scale(0.95);
+}
+
+/* Topo com usuário + botão sair */
+.topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-sair {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.1s;
+  min-height: 36px;
+}
+
+.btn-sair:hover {
+  transform: scale(1.05);
+}
+
+.btn-sair:active {
+  transform: scale(0.95);
+}

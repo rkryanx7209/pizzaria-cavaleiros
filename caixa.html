@@ -17,18 +17,15 @@
   <div class="painel">
     <div class="topo">
       <h1>🍕 Bella Massa — Caixa</h1>
-      <nav class="nav-telas">
-        <a href="chef.html">👨‍🍳 Chef</a>
-        <a href="garcom.html">🛎️ Garçom</a>
-        <a href="caixa.html" class="ativo">💳 Caixa</a>
-        <a href="dashboard.html">📊 Dashboard</a>
-      </nav>
+      <div class="topo-direita">
+        <span id="usuarioLogado" style="font-size:13px;color:var(--mut);"></span>
+        <button class="btn-sair" onclick="sair()">🚪 Sair</button>
+      </div>
     </div>
 
     <div class="grid" id="grid"></div>
   </div>
 
-  <script src="src/js/dados.js"></script>
-  <script src="src/js/caixa.js"></script>
+  <script type="module" src="src/js/caixa.js"></script>
 </body>
 </html>

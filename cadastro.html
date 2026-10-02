@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bella Massa — Cadastro</title>
+  <link rel="icon" type="image/png" href="src/img/bella.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap">
+  <link rel="stylesheet" href="src/css/global.css">
+  <link rel="stylesheet" href="src/css/cadastro.css">
+</head>
+<body class="body-login">
+
+  <div class="bg-pizzaria"></div>
+
+  <div class="login-box">
+    <h1>🍕 Bella Massa</h1>
+    <h2>👤 Cadastro de Funcionário</h2>
+    <p class="mut">Preencha os dados e escolha a função.</p>
+    <p class="mut" id="gerenteLogado" style="color: var(--gold); font-weight: 700; margin-bottom: 20px;"></p>
+
+    <label class="f" for="nome">Nome Completo</label>
+    <input type="text" id="nome" placeholder="Ex.: Seu Giuseppe" autocomplete="name">
+
+    <label class="f" for="email">E-mail</label>
+    <input type="email" id="email" placeholder="funcionario@bellamassa.com" autocomplete="email">
+
+    <label class="f" for="senha">Senha</label>
+    <input type="password" id="senha" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+
+    <label class="f" for="perfil">Função</label>
+    <select id="perfil">
+      <option value="">Selecione a função...</option>
+      <option value="chef">👨‍🍳 Chef (Pizzaiolo)</option>
+      <option value="garcom">🛎️ Garçom</option>
+      <option value="caixa">💳 Caixa</option>
+      <option value="gerente">📊 Gerente</option>
+    </select>
+
+    <button class="btn red" id="btnCadastrar" style="margin-top:20px">
+      Cadastrar Funcionário
+    </button>
+
+    <button class="btn voltar" id="btnVoltar" style="margin-top:10px">
+      ← Voltar para o Dashboard
+    </button>
+
+    <p class="erro hidden" id="msgErro"></p>
+    <p class="sucesso hidden" id="msgSucesso"></p>
+  </div>
+
+  <script type="module" src="src/js/cadastro.js"></script>
+</body>
+</html>

@@ -1,43 +1,47 @@
-// Estado local do tablet do cliente
+// Importa funções do dados.js
+import { MENU, criarPedido, getPedidos, atualizarPedido, R, mm, hora, gerarReciboHTML } from './dados.js';
+
+// Estado do tablet
 const S = {
   etapa: 'identificacao',
   nome: '',
-  mesa: 7,
+  mesa: '',      // ← vazio, nada pré-selecionado
   cart: {},
   pedidoAtual: null,
 };
 
-// Timers do auto-reset e da contagem regressiva
 let timerAutoReset = null;
 let intervalContagem = null;
-
-// Tempo em segundos para o tablet voltar sozinho após pagamento
 const TEMPO_RESET = 4;
 
-// Renderiza a etapa atual do tablet
+// Renderiza a etapa atual
 function renderTablet() {
   const etapas = {
     identificacao: 'etapaIdentificacao',
-    cardapio:      'etapaCardapio',
-    aguardando:    'etapaAguardando',
-    pagamento:     'etapaPagamento',
-    pago:          'etapaPago',
+    cardapio: 'etapaCardapio',
+    aguardando: 'etapaAguardando',
+    pagamento: 'etapaPagamento',
+    pago: 'etapaPago',
   };
 
-  // Esconde todas as etapas
-  Object.values(etapas).forEach(id => {
-    document.getElementById(id).classList.add('hidden');
-  });
-
-  // Mostra a etapa atual
+  Object.values(etapas).forEach(id => document.getElementById(id).classList.add('hidden'));
   document.getElementById(etapas[S.etapa]).classList.remove('hidden');
 
   // ETAPA: IDENTIFICAÇÃO
   if (S.etapa === 'identificacao') {
     const sel = document.getElementById('mesa');
 
-    // Popula o select de mesas na primeira vez
+    // Popula o select na primeira vez
     if (sel.options.length === 0) {
+      // Placeholder "Selecione..."
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = 'Selecione sua mesa...';
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      sel.appendChild(placeholder);
+
+      // 12 mesas
       for (let i = 1; i <= 12; i++) {
         const opt = document.createElement('option');
         opt.value = i;
@@ -54,13 +58,10 @@ function renderTablet() {
   if (S.etapa === 'cardapio') {
     document.getElementById('saudacao').textContent = `Olá, ${S.nome}!`;
     document.getElementById('infoMesa').textContent = `Cardápio da Mesa ${mm(S.mesa)}`;
-
-    const lista = document.getElementById('listaItens');
-    lista.innerHTML = renderizarCardapio();
+    document.getElementById('listaItens').innerHTML = renderizarCardapio();
 
     const total = MENU.reduce((s, i) => s + (S.cart[i.n] || 0) * i.p, 0);
     const qtd = Object.values(S.cart).reduce((a, b) => a + b, 0);
-
     document.getElementById('totalPedido').textContent = R(total);
     document.getElementById('btnEnviar').disabled = qtd === 0;
   }
@@ -85,33 +86,28 @@ function renderTablet() {
   }
 }
 
-// Renderiza o cardápio com seções separadas
+// Renderiza o cardápio
 function renderizarCardapio() {
-  const tradicionais = MENU.filter(i => i.cat === 'tradicional');
-  const especiais    = MENU.filter(i => i.cat === 'especial');
-  const bebidas      = MENU.filter(i => i.cat === 'bebida');
+  const trad = MENU.filter(i => i.cat === 'tradicional');
+  const esp = MENU.filter(i => i.cat === 'especial');
+  const beb = MENU.filter(i => i.cat === 'bebida');
 
   return `
     <h3 class="secao-cardapio">🍕 Pizzas Tradicionais</h3>
-    ${tradicionais.map(renderizarItem).join('')}
-
+    ${trad.map(renderizarItem).join('')}
     <h3 class="secao-cardapio">⭐ Pizzas Especiais</h3>
-    ${especiais.map(renderizarItem).join('')}
-
+    ${esp.map(renderizarItem).join('')}
     <h3 class="secao-cardapio">🥤 Bebidas</h3>
-    ${bebidas.map(renderizarItem).join('')}
+    ${beb.map(renderizarItem).join('')}
   `;
 }
 
-// Renderiza um item do cardápio
+// Renderiza um item
 function renderizarItem(item) {
   const q = S.cart[item.n] || 0;
   return `
     <div class="item">
-      <div>
-        <b>${item.n}</b>
-        <div class="price">${R(item.p)}</div>
-      </div>
+      <div><b>${item.n}</b><div class="price">${R(item.p)}</div></div>
       <div class="qty">
         <button data-a="sub" data-n="${item.n}">−</button>
         <b>${q}</b>
@@ -120,153 +116,139 @@ function renderizarItem(item) {
     </div>`;
 }
 
-// Contagem regressiva visual e reset automático
+// Contagem regressiva
 function iniciarContagemRegressiva() {
-  const contagemEl = document.getElementById('contagem');
-  if (!contagemEl) return;
+  const el = document.getElementById('contagem');
+  if (!el) return;
 
-  // Limpa timers anteriores
   clearInterval(intervalContagem);
   clearTimeout(timerAutoReset);
 
-  let segundos = TEMPO_RESET;
-  contagemEl.textContent = `⏳ Voltando ao início em ${segundos}s...`;
+  let s = TEMPO_RESET;
+  el.textContent = `⏳ Voltando ao início em ${s}s...`;
 
-  // Atualiza o texto a cada 1 segundo
   intervalContagem = setInterval(() => {
-    segundos--;
-    if (segundos > 0) {
-      contagemEl.textContent = `⏳ Voltando ao início em ${segundos}s...`;
-    } else {
-      contagemEl.textContent = `⏳ Voltando ao início...`;
-      clearInterval(intervalContagem);
-    }
+    s--;
+    if (s > 0) el.textContent = `⏳ Voltando ao início em ${s}s...`;
+    else { el.textContent = `⏳ Voltando ao início...`; clearInterval(intervalContagem); }
   }, 1000);
 
-  // Executa o reset após o tempo definido
-  timerAutoReset = setTimeout(() => {
-    clearInterval(intervalContagem);
-    resetarTablet();
-  }, TEMPO_RESET * 1000);
+  timerAutoReset = setTimeout(() => { clearInterval(intervalContagem); resetarTablet(); }, TEMPO_RESET * 1000);
 }
 
-// Botão "Acessar Cardápio"
-document.getElementById('btnAcessar').addEventListener('click', () => {
-  const nome = document.getElementById('nome').value.trim();
-  const mesa = +document.getElementById('mesa').value;
-
-  if (!nome) {
-    alert('Por favor, informe o seu nome.');
-    return;
-  }
-
-  S.nome = nome;
-  S.mesa = mesa;
-  S.etapa = 'cardapio';
-  renderTablet();
-});
-
-// Botões de + e − (adicionar / remover itens)
-document.addEventListener('click', e => {
-  const btn = e.target.closest('[data-a]');
-  if (!btn) return;
-
-  const acao = btn.dataset.a;
-  const nome = btn.dataset.n;
-
-  if (acao === 'add') {
-    S.cart[nome] = (S.cart[nome] || 0) + 1;
-    renderTablet();
-  }
-
-  if (acao === 'sub' && S.cart[nome]) {
-    S.cart[nome]--;
-    if (S.cart[nome] === 0) delete S.cart[nome];
-    renderTablet();
-  }
-});
-
-// Botão "Enviar para a Cozinha"
-document.getElementById('btnEnviar').addEventListener('click', () => {
-  const items = MENU
-    .filter(i => S.cart[i.n])
-    .map(i => ({ n: i.n, q: S.cart[i.n], p: i.p, k: i.k }));
-
-  if (items.length === 0) return;
-
-  const pedido = {
-    id: proximoId(),
-    mesa: S.mesa,
-    nome: S.nome,
-    items,
-    st: items.some(i => i.k) ? 'novo' : 'pronto',
-    t: Date.now(),
-    paid: 0,
-    formaPagamento: null,
-  };
-
-  const pedidos = getPedidos();
-  pedidos.push(pedido);
-  setPedidos(pedidos);
-
-  S.pedidoAtual = pedido;
-  S.cart = {};
-  S.etapa = 'aguardando';
-  renderTablet();
-});
-
-// Monitora se o pedido foi entregue pelo garçom
-setInterval(() => {
-  if (S.etapa === 'aguardando' && S.pedidoAtual) {
-    const pedidos = getPedidos();
-    const atualizado = pedidos.find(p => p.id === S.pedidoAtual.id);
-
-    if (atualizado && atualizado.st === 'entregue') {
-      S.pedidoAtual = atualizado;
-      S.etapa = 'pagamento';
-      renderTablet();
-    }
-  }
-}, 2000);
-
-// Pagamento pelo tablet
-document.addEventListener('click', e => {
-  const btn = e.target.closest('[data-pag]');
-  if (!btn) return;
-
-  const forma = btn.dataset.pag;
-  const pedidos = getPedidos();
-  const pedido = pedidos.find(p => p.id === S.pedidoAtual.id);
-
-  pedido.formaPagamento = forma;
-  pedido.paid = 1;
-  pedido.st = 'pago';
-
-  setPedidos(pedidos);
-  S.pedidoAtual = pedido;
-  S.etapa = 'pago';
-  renderTablet();
-});
-
-// Reseta o tablet para a tela inicial
+// Reset do tablet
 function resetarTablet() {
   clearTimeout(timerAutoReset);
   clearInterval(intervalContagem);
-
   S.etapa = 'identificacao';
   S.nome = '';
-  S.mesa = 7;
+  S.mesa = '';
   S.cart = {};
   S.pedidoAtual = null;
   renderTablet();
 }
 
-// Botão "Iniciar Novo Atendimento"
-document.getElementById('btnNovoCliente').addEventListener('click', () => {
-  resetarTablet();
-});
-
-// Inicialização
+// ==========================================
+// INICIALIZAÇÃO
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   renderTablet();
+
+  // Botão "Acessar Cardápio"
+  document.getElementById('btnAcessar').addEventListener('click', () => {
+    const nome = document.getElementById('nome').value.trim();
+    const mesa = +document.getElementById('mesa').value;
+
+    if (!nome) {
+      alert('Por favor, informe o seu nome.');
+      return;
+    }
+
+    if (!mesa) {
+      alert('Por favor, selecione a sua mesa.');
+      return;
+    }
+
+    S.nome = nome;
+    S.mesa = mesa;
+    S.etapa = 'cardapio';
+    renderTablet();
+  });
+
+  // Botões + e −
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-a]');
+    if (!btn) return;
+    const { a, n } = btn.dataset;
+    if (a === 'add') { S.cart[n] = (S.cart[n] || 0) + 1; renderTablet(); }
+    if (a === 'sub' && S.cart[n]) { S.cart[n]--; if (S.cart[n] === 0) delete S.cart[n]; renderTablet(); }
+  });
+
+  // Botão "Enviar para a Cozinha"
+  document.getElementById('btnEnviar').addEventListener('click', async () => {
+    const items = MENU.filter(i => S.cart[i.n]).map(i => ({ n: i.n, q: S.cart[i.n], p: i.p, k: i.k }));
+    if (items.length === 0) return;
+
+    const pedido = {
+      mesa: S.mesa,
+      nome: S.nome,
+      items,
+      st: items.some(i => i.k) ? 'novo' : 'pronto',
+      t: Date.now(),
+      paid: 0,
+      formaPagamento: null,
+    };
+
+    try {
+      const id = await criarPedido(pedido);
+      S.pedidoAtual = { id, ...pedido };
+      S.cart = {};
+      S.etapa = 'aguardando';
+      renderTablet();
+    } catch (erro) {
+      console.error('Erro ao criar pedido:', erro);
+      alert('Erro ao enviar pedido. Verifique a conexão.');
+    }
+  });
+
+  // Pagamento pelo tablet
+  document.addEventListener('click', async e => {
+    const btn = e.target.closest('[data-pag]');
+    if (!btn) return;
+
+    const forma = btn.dataset.pag;
+    try {
+      await atualizarPedido(S.pedidoAtual.id, {
+        formaPagamento: forma, paid: 1, st: 'pago'
+      });
+      S.pedidoAtual.formaPagamento = forma;
+      S.pedidoAtual.paid = 1;
+      S.pedidoAtual.st = 'pago';
+      S.etapa = 'pago';
+      renderTablet();
+    } catch (erro) {
+      console.error('Erro ao processar pagamento:', erro);
+    }
+  });
+
+  // Botão "Iniciar Novo Atendimento"
+  document.getElementById('btnNovoCliente').addEventListener('click', resetarTablet);
+
+  // Monitora entrega pelo garçom
+  setInterval(async () => {
+    if (S.etapa === 'aguardando' && S.pedidoAtual) {
+      try {
+        const pedidos = await getPedidos();
+        const atualizado = pedidos.find(p => p.id === S.pedidoAtual.id);
+
+        if (atualizado && atualizado.st === 'entregue') {
+          S.pedidoAtual = atualizado;
+          S.etapa = 'pagamento';
+          renderTablet();
+        }
+      } catch (erro) {
+        console.warn('⏳ Aguardando permissão do Firestore...');
+      }
+    }
+  }, 2000);
 });

@@ -17,20 +17,15 @@
   <div class="painel">
     <div class="topo">
       <h1>🍕 Bella Massa — Garçom</h1>
-      <nav class="nav-telas">
-        <nav class="nav-telas">
-        <a href="chef.html">👨‍🍳 Chef</a>
-        <a href="garcom.html" class="ativo">🛎️ Garçom</a>
-        <a href="caixa.html">💳 Caixa</a>
-        <a href="dashboard.html">📊 Dashboard</a>
-      </nav>
-      </nav>
+      <div class="topo-direita">
+        <span id="usuarioLogado" style="font-size:13px;color:var(--mut);"></span>
+        <button class="btn-sair" onclick="sair()">🚪 Sair</button>
+      </div>
     </div>
 
     <div class="lista" id="lista"></div>
   </div>
 
-  <script src="src/js/dados.js"></script>
-  <script src="src/js/garcom.js"></script>
+  <script type="module" src="src/js/garcom.js"></script>
 </body>
 </html>

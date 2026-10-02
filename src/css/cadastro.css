@@ -1,0 +1,114 @@
+/* Centraliza a caixa */
+.body-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Caixa principal */
+.login-box {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.login-box h1 {
+  font-family: Fraunces, Georgia, serif;
+  color: var(--red);
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.login-box h2 {
+  color: var(--ink);
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.login-box p.mut {
+  margin-bottom: 24px;
+}
+
+.login-box label.f {
+  text-align: left;
+}
+
+/* Inputs e Selects */
+.login-box input,
+.login-box select {
+  background: var(--bg);
+  border: 2px solid var(--line);
+  color: var(--ink);
+  padding: 12px;
+  border-radius: 10px;
+  font: inherit;
+  width: 100%;
+  margin-top: 4px;
+  transition: border-color 0.2s;
+}
+
+.login-box input:focus,
+.login-box select:focus {
+  outline: none;
+  border-color: var(--red);
+}
+
+/* Select customizado */
+.login-box select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c4302b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.login-box select option {
+  background: var(--card);
+  color: var(--ink);
+}
+
+/* Botões */
+.login-box .btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.login-box .btn.voltar {
+  background: #444;
+  color: #fff;
+}
+
+.login-box .btn.voltar:hover {
+  background: #555;
+}
+
+/* Mensagens */
+.erro {
+  color: var(--red);
+  font-weight: 700;
+  margin-top: 16px;
+  padding: 10px;
+  background: rgba(196, 48, 43, 0.1);
+  border-radius: 8px;
+}
+
+.sucesso {
+  color: var(--ok);
+  font-weight: 700;
+  margin-top: 16px;
+  padding: 10px;
+  background: rgba(47, 125, 79, 0.1);
+  border-radius: 8px;
+}
